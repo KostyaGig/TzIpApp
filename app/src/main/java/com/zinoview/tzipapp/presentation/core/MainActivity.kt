@@ -1,7 +1,8 @@
-package com.zinoview.tzipapp
+package com.zinoview.tzipapp.presentation.core
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.zinoview.tzipapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
