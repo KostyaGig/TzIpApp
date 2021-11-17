@@ -5,19 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.zinoview.tzipapp.presentation.core.Observe
 
-interface CommunicationUiStateScreen : Observe<UiStateScreenIp> {
+interface CommunicationUiStateScreen : Observe<List<UiStateScreenIp>> {
 
-    fun postValue(value: UiStateScreenIp)
+    fun postValue(value: List<UiStateScreenIp>)
 
     class Base : CommunicationUiStateScreen {
 
-        private val liveData = MutableLiveData<UiStateScreenIp>()
+        private val liveData = MutableLiveData<List<UiStateScreenIp>>()
 
-        override fun postValue(value: UiStateScreenIp) {
+        override fun postValue(value: List<UiStateScreenIp>) {
             liveData.value = value
         }
 
-        override fun observe(owner: LifecycleOwner, observer: Observer<UiStateScreenIp>)
+        override fun observe(owner: LifecycleOwner, observer: Observer<List<UiStateScreenIp>>)
             = liveData.observe(owner, observer)
 
     }

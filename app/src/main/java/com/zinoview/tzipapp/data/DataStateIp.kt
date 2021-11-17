@@ -13,6 +13,14 @@ sealed class DataStateIp : Abstract.IpState {
             = mapper.map(baseIp)
     }
 
+    class Cache(
+        private val baseIps: List<BaseIp>
+    ) : DataStateIp() {
+
+        override fun <T> map(mapper: Abstract.IpStateMapper<T>): T
+            = mapper.mapCache(baseIps)
+    }
+
     class Failure(
         private val message: String
     ) : DataStateIp() {

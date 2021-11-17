@@ -14,6 +14,11 @@ interface ToDomainStateIpMapper : Abstract.IpStateMapper<DomainStateIp> {
                 baseIp.map(toDomainIpMapper)
             )
 
+        override fun mapCache(baseIps: List<BaseIp>): DomainStateIp
+            = DomainStateIp.Cache(
+                baseIps.map { dataIp -> dataIp.map(toDomainIpMapper) }
+            )
+
         override fun map(message: String): DomainStateIp
             = DomainStateIp.Failure(message)
     }

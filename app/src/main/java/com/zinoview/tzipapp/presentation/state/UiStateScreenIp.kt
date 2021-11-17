@@ -6,7 +6,8 @@ import android.widget.TextView
 
 sealed class UiStateScreenIp {
 
-    abstract fun handleState(progressBar: ProgressBar,errorTextView: TextView,ipTextView: TextView)
+    open fun handleState(progressBar: ProgressBar,errorTextView: TextView,ipTextView: TextView)
+        = Unit
 
     object Progress : UiStateScreenIp() {
 
@@ -43,6 +44,21 @@ sealed class UiStateScreenIp {
         private companion object {
             private const val YOUR_IP_TEXT = "Your ip: "
         }
+    }
+
+    class Cache(
+        private val ip: String,
+        private val timeRequest: String
+    ) : UiStateScreenIp() {
+
+        override fun handleState(
+            progressBar: ProgressBar,
+            errorTextView: TextView,
+            ipTextView: TextView
+        ) {
+
+        }
+
     }
 
     class Failure(

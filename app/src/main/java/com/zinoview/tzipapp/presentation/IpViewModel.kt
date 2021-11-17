@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-interface IpViewModel : Observe<UiStateScreenIp> {
+interface IpViewModel : Observe<List<UiStateScreenIp>> {
 
     fun ip()
 
@@ -27,7 +27,7 @@ interface IpViewModel : Observe<UiStateScreenIp> {
     ) : IpViewModel,ViewModel() {
 
         override fun ip() {
-            communicationUiStateScreen.postValue(UiStateScreenIp.Progress)
+            communicationUiStateScreen.postValue(listOf(UiStateScreenIp.Progress))
             viewModelScope.launch(defaultDispatcher) {
                 val domainIp = interactor.ip()
                 val uiStateIp = domainIp.map(toUiStateIpMapper)
@@ -40,7 +40,7 @@ interface IpViewModel : Observe<UiStateScreenIp> {
 
         }
 
-        override fun observe(owner: LifecycleOwner, observer: Observer<UiStateScreenIp>)
+        override fun observe(owner: LifecycleOwner, observer: Observer<List<UiStateScreenIp>>)
             = communicationUiStateScreen.observe(owner,observer)
     }
 }

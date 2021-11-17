@@ -43,12 +43,14 @@ class IpFragment : BaseFragment(R.layout.ip_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         ipViewModel.observe(this) { uiStateScreen ->
-            uiStateScreen.handleState(binding.ipPb,binding.ipErrorTv,binding.ipTv)
+            uiStateScreen.first().handleState(binding.ipPb,binding.ipErrorTv,binding.ipTv)
         }
 
         binding.ipBtn.setOnClickListener {
             ipViewModel.ip()
         }
 
+        //todo save request to room and read requests from room on HistoryRequestFragment
+        //todo create cache module
     }
 }

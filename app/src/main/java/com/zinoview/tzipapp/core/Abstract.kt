@@ -21,6 +21,8 @@ interface Abstract {
 
         fun map(baseIp: BaseIp) : T
 
+        fun mapCache(baseIps: List<BaseIp>) : T
+
         fun map(message: String) : T
     }
 
