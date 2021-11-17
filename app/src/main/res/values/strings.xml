@@ -2,4 +2,6 @@
     <string name="app_name">TzIpApp</string>
     <string name="no_connection_text">No connection</string>
     <string name="some_went_wrong_text">Some went wrong</string>
+    <string name="my_ip_text">Мой IP</string>
+    <string name="fetch_your_ip_text">Fetch your ip!</string>
 </resources>
