@@ -13,10 +13,15 @@ interface ToUiStateScreenIpMapper : Abstract.IpStateMapper<List<UiStateScreenIp>
         override fun map(baseIp: BaseIp): List<UiStateScreenIp>
             = listOf(baseIp.map(toUiStateScreenBaseIpMapper))
 
-        override fun mapCache(baseIps: List<BaseIp>): List<UiStateScreenIp>
-            = baseIps.map { uiStateIp ->
-                uiStateIp.map(toUiStateScreenCacheIpMapper)
+        override fun mapCache(baseIps: List<BaseIp>): List<UiStateScreenIp> {
+            return if (baseIps.isEmpty()) {
+                listOf(UiStateScreenIp.Cache.Empty())
+            } else {
+                baseIps.map { uiStateIp ->
+                    uiStateIp.map(toUiStateScreenCacheIpMapper)
+                }
             }
+        }
 
         override fun map(message: String): List<UiStateScreenIp>
             = listOf(UiStateScreenIp.Failure(message))

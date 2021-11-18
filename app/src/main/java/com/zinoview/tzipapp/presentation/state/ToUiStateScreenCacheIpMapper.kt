@@ -7,7 +7,7 @@ interface ToUiStateScreenCacheIpMapper : Abstract.IpMapper<UiStateScreenIp> {
     class Base : ToUiStateScreenCacheIpMapper {
 
         override fun map(ip: String, forwardedFor: String): UiStateScreenIp
-            = UiStateScreenIp.Cache(
+            = UiStateScreenIp.Cache.Base(
                 ip,forwardedFor
             )
     }

@@ -2,11 +2,27 @@
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph.xml"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/ipFragment">
 
     <fragment
         android:id="@+id/ipFragment"
         android:name="com.zinoview.tzipapp.presentation.fragment.IpFragment"
-        android:label="IpFragment" />
+        android:label="IpFragment" >
+        <action
+            android:id="@+id/action_ipFragment_to_historyRequestIpFragment"
+            app:destination="@id/historyRequestIpFragment"
+            app:enterAnim="@animator/nav_default_enter_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/historyRequestIpFragment"
+        android:name="com.zinoview.tzipapp.presentation.fragment.HistoryRequestIpFragment"
+        android:label="HistoryRequestIpFragment" >
+        <action
+            android:id="@+id/action_historyRequestIpFragment_to_ipFragment"
+            app:destination="@id/ipFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:exitAnim="@animator/nav_default_exit_anim"/>
+    </fragment>
 </navigation>

@@ -3,24 +3,30 @@ package com.zinoview.tzipapp.data
 import com.zinoview.tzipapp.data.cache.CacheDataSource
 import com.zinoview.tzipapp.data.cloud.CloudDataSource
 import com.zinoview.tzipapp.data.cloud.CloudIp
+import kotlinx.coroutines.delay
 import java.lang.Exception
 
 interface IpRepository<T> {
 
     suspend fun ip() : T
 
-    suspend fun historyIp() : T
+    suspend fun historyRequestsIp() : T
 
     class Base(
         private val cloudDataSource: CloudDataSource<CloudIp>,
         private val cacheDataSource: CacheDataSource,
         private val toDataIpMapper: ToDataIpMapper,
-        private val exceptionMapper: ExceptionMapper<String>
+        private val exceptionMapper: ExceptionMapper<String>,
+        private val timeRemoteRequest: TimeRemoteRequest
     ) : IpRepository<DataStateIp> {
 
         override suspend fun ip(): DataStateIp {
             return try {
-                val cloudIp = cloudDataSource.ip()
+                timeRemoteRequest.start()
+                delay(DELAY.toLong())
+                val cloudIp = cloudDataSource.data()
+                val timeRequest = timeRemoteRequest.time()
+                cacheDataSource.save(cloudIp,timeRequest)
                 val dataIp = cloudIp.map(toDataIpMapper)
                 DataStateIp.Success(dataIp)
             } catch (e: Exception) {
@@ -29,10 +35,14 @@ interface IpRepository<T> {
             }
         }
 
-        override suspend fun historyIp(): DataStateIp {
-            val cacheIps = cacheDataSource.historyIp()
+        override suspend fun historyRequestsIp(): DataStateIp {
+            val cacheIps = cacheDataSource.data().reversed()
             val dataIps = cacheIps.map { cacheIp -> cacheIp.map(toDataIpMapper) }
             return DataStateIp.Cache(dataIps)
+        }
+
+        private companion object {
+            private const val DELAY = 1000
         }
     }
 
@@ -43,7 +53,7 @@ interface IpRepository<T> {
         private var isFailure = false
 
         override suspend fun ip(): TestDataStateIp {
-            val ip = testCloudDataSource.ip()
+            val ip = testCloudDataSource.data()
 
             return if (isFailure) {
                 isFailure = false
@@ -53,11 +63,6 @@ interface IpRepository<T> {
                 TestDataStateIp.Success(ip)
             }
         }
-
-        //todo make test
-        override suspend fun historyIp(): TestDataStateIp
-            = TestDataStateIp.Failure("")
-
         sealed class TestDataStateIp {
 
             data class Success(
@@ -68,5 +73,8 @@ interface IpRepository<T> {
                 private val message: String
             ) : TestDataStateIp()
         }
+
+        override suspend fun historyRequestsIp(): TestDataStateIp
+                = TestDataStateIp.Failure("")
     }
 }

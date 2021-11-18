@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.zinoview.tzipapp.R
 import com.zinoview.tzipapp.databinding.IpFragmentBinding
 import com.zinoview.tzipapp.presentation.IpViewModel
@@ -48,6 +49,10 @@ class IpFragment : BaseFragment(R.layout.ip_fragment) {
 
         binding.ipBtn.setOnClickListener {
             ipViewModel.ip()
+        }
+
+        binding.ipsBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_ipFragment_to_historyRequestIpFragment)
         }
 
         //todo save request to room and read requests from room on HistoryRequestFragment

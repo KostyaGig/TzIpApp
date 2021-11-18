@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zinoview.tzipapp.domain.DomainStateIp
 import com.zinoview.tzipapp.domain.IpInteractor
 import com.zinoview.tzipapp.presentation.core.Observe
 import com.zinoview.tzipapp.presentation.state.CommunicationUiStateScreen
@@ -18,6 +19,8 @@ interface IpViewModel : Observe<List<UiStateScreenIp>> {
 
     fun ip()
 
+    fun historyRequestsIp()
+
     class Base(
         private val interactor: IpInteractor,
         private val toUiStateIpMapper: ToUiStateIpMapper,
@@ -30,14 +33,26 @@ interface IpViewModel : Observe<List<UiStateScreenIp>> {
             communicationUiStateScreen.postValue(listOf(UiStateScreenIp.Progress))
             viewModelScope.launch(defaultDispatcher) {
                 val domainIp = interactor.ip()
-                val uiStateIp = domainIp.map(toUiStateIpMapper)
-                val uiStateScreenIp = uiStateIp.map(toUiStateScreenIpMapper)
-
-                withContext(Dispatchers.Main) {
-                    communicationUiStateScreen.postValue(uiStateScreenIp)
-                }
+                doAction(domainIp)
             }
 
+        }
+
+        override fun historyRequestsIp() {
+            communicationUiStateScreen.postValue(listOf(UiStateScreenIp.Progress))
+            viewModelScope.launch(defaultDispatcher) {
+                val domainIp = interactor.historyRequestsIp()
+                doAction(domainIp)
+            }
+        }
+
+        private suspend fun doAction(domainIp: DomainStateIp) {
+            val uiStateIp = domainIp.map(toUiStateIpMapper)
+            val uiStateScreenIp = uiStateIp.map(toUiStateScreenIpMapper)
+
+            withContext(Dispatchers.Main) {
+                communicationUiStateScreen.postValue(uiStateScreenIp)
+            }
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<UiStateScreenIp>>)

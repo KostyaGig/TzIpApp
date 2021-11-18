@@ -43,6 +43,18 @@
     </androidx.cardview.widget.CardView>
 
     <Button
+        android:id="@+id/ips_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="History"
+        app:layout_constraintBottom_toTopOf="@id/ip_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:layout_marginStart="@dimen/margin_10dp"
+        android:layout_marginEnd="@dimen/margin_10dp"/>
+
+    <Button
         android:id="@+id/ip_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

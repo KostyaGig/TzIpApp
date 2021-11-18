@@ -9,6 +9,11 @@ sealed class UiStateScreenIp {
     open fun handleState(progressBar: ProgressBar,errorTextView: TextView,ipTextView: TextView)
         = Unit
 
+
+    //todo move to interafce
+    open fun bind(ipTextView: TextView, timeRequestTextView: TextView) = Unit
+    open fun bind(emptyRequestsTextView: TextView) = Unit
+
     object Progress : UiStateScreenIp() {
 
         override fun handleState(
@@ -46,19 +51,26 @@ sealed class UiStateScreenIp {
         }
     }
 
-    class Cache(
+    abstract class Cache(
         private val ip: String,
         private val timeRequest: String
     ) : UiStateScreenIp() {
 
-        override fun handleState(
-            progressBar: ProgressBar,
-            errorTextView: TextView,
-            ipTextView: TextView
-        ) {
-
+        override fun bind(ipTextView: TextView, timeRequestTextView: TextView) {
+            ipTextView.text = ip
+            timeRequestTextView.text = timeRequest + SECONDS
         }
 
+        class Base(
+            ip: String,
+            timeRequest: String
+        ) : Cache(ip, timeRequest)
+
+        class Empty : Cache("","")
+
+        private companion object {
+            private const val SECONDS = "sc"
+        }
     }
 
     class Failure(

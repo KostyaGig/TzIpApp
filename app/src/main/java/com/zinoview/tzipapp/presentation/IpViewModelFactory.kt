@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.zinoview.tzipapp.domain.IpInteractor
 import com.zinoview.tzipapp.presentation.state.CommunicationUiStateScreen
 import com.zinoview.tzipapp.presentation.state.ToUiStateScreenBaseIpMapper
+import com.zinoview.tzipapp.presentation.state.ToUiStateScreenCacheIpMapper
 import com.zinoview.tzipapp.presentation.state.ToUiStateScreenIpMapper
 
 interface IpViewModelFactory : ViewModelProvider.Factory {
@@ -20,7 +21,8 @@ interface IpViewModelFactory : ViewModelProvider.Factory {
                     ToUiIpMapper.Base()
                 ),
                 ToUiStateScreenIpMapper.Base(
-                    ToUiStateScreenBaseIpMapper.Base()
+                    ToUiStateScreenBaseIpMapper.Base(),
+                    ToUiStateScreenCacheIpMapper.Base()
                 ),
                 CommunicationUiStateScreen.Base()
             ) as T

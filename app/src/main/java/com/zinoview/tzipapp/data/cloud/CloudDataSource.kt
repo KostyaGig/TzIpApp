@@ -1,20 +1,20 @@
 package com.zinoview.tzipapp.data.cloud
 
-interface CloudDataSource<T> {
+import com.zinoview.tzipapp.data.core.DataSource
 
-    suspend fun ip() : T
+interface CloudDataSource<T> : DataSource<T> {
 
     class Base(
         private val ipService: IpService
     ) : CloudDataSource<CloudIp> {
 
-        override suspend fun ip(): CloudIp
+        override suspend fun data(): CloudIp
             = ipService.ip()
     }
 
     class Test : CloudDataSource<String> {
 
-        override suspend fun ip(): String
+        override suspend fun data(): String
             = MOCK_IP
 
         private companion object {

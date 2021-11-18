@@ -6,6 +6,8 @@ interface IpInteractor {
 
     suspend fun ip() : DomainStateIp
 
+    suspend fun historyRequestsIp() : DomainStateIp
+
     class Base(
         private val repository: IpRepository<DataStateIp>,
         private val toDomainStateIpMapper: ToDomainStateIpMapper
@@ -13,6 +15,11 @@ interface IpInteractor {
 
         override suspend fun ip(): DomainStateIp {
             val dataIp = repository.ip()
+            return dataIp.map(toDomainStateIpMapper)
+        }
+
+        override suspend fun historyRequestsIp(): DomainStateIp {
+            val dataIp = repository.historyRequestsIp()
             return dataIp.map(toDomainStateIpMapper)
         }
 

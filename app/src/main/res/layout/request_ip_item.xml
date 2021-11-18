@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/margin_10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:id="@+id/item"
+    app:cardCornerRadius="@dimen/margin_10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ip_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="123.563.134.6"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ip_text_size"
+                android:layout_margin="@dimen/margin_10dp"/>
+
+            <TextView
+                android:id="@+id/time_request_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/time_request_tv_size"
+                tools:text="24s"
+                android:layout_gravity="end"/>
+
+        </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

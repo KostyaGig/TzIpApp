@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/empty_item.xml" value="0.3398148148148148" />
+        <entry key="app/src/main/res/layout/history_request_ip_fragment.xml" value="0.3651041666666667" />
         <entry key="app/src/main/res/layout/ip_fragment.xml" value="0.3453703703703704" />
+        <entry key="app/src/main/res/layout/progress_item.xml" value="0.3651041666666667" />
+        <entry key="app/src/main/res/layout/request_ip_item.xml" value="0.3651041666666667" />
       </map>
     </option>
   </component>

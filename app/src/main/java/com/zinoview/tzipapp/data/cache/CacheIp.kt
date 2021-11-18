@@ -14,10 +14,10 @@ interface CacheIp : BaseIp {
         var ip: String,
         @PrimaryKey
         @ColumnInfo(name = "timeRequest")
-        var timeRequest: String
+        var timeRequest: Double
     ) : CacheIp {
 
         override fun <T> map(mapper: Abstract.IpMapper<T>): T
-            = mapper.map(ip,timeRequest)
+            = mapper.map(ip,timeRequest.toString())
     }
 }
