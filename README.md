@@ -50,8 +50,8 @@ src="https://firebasestorage.googleapis.com/v0/b/fir-mvvm-c45df.appspot.com/o/ip
 ### Feature IA02 show history recent requests (данную фичу можно протестировать согласно тесткейсам)
 [IA02TestCases](https://github.com/KostyaGig/TzIpApp/blob/master/app/src/main/java/com/zinoview/tzipapp/testcases/IA02TestCases)<br/>
 
-Состояние Empty(когда не было сделаное ни одного запроса в сеть,но мы решили посмотреть список уже сделанныз запросов)
+Состояние Empty(когда не было сделаное ни одного запроса в сеть,но мы решили посмотреть список уже сделанныз запросов)<br/>
 <img src="https://firebasestorage.googleapis.com/v0/b/fir-mvvm-c45df.appspot.com/o/photo_2021-11-18_21-24-52.jpg?alt=media&token=a8724ec5-0373-4953-b3fe-e3a164ed2795" width="300" height="550"/>
 
-Состояние Success(отображение ip,полученного с сервера, а также отображение времени,затраченного на данный запрос в сеть)
+Состояние Success(отображение ip,полученного с сервера, а также отображение времени,затраченного на данный запрос в сеть)<br/>
 <img src="https://firebasestorage.googleapis.com/v0/b/fir-mvvm-c45df.appspot.com/o/photo_2021-11-18_21-24-53.jpg?alt=media&token=9c3d64cf-e617-481b-8d5d-bcb42eab93cb" width="300" height="550"/>
