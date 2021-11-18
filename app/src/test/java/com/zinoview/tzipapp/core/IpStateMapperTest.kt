@@ -32,6 +32,38 @@ class IpStateMapperTest {
     }
 
     @Test
+    fun cache_map_data_ip_state_to_domain() {
+        val mapperDomainIpState = MapperDataIpStateToDomain()
+
+        val dataIpState = TestDataIpState.Cache(
+            listOf(
+                TestBaseIp(
+                    "123.456.678.12","163.456.618.10"
+                ),
+                TestBaseIp(
+                    "121.456.668.12","163.416.688.09"
+                )
+            )
+        )
+
+        val expected = TestDomainIpState.Cache(
+            listOf(
+                TestBaseIp(
+                    "123.456.678.12","163.456.618.10"
+                ),
+                TestBaseIp(
+                    "121.456.668.12","163.416.688.09"
+                )
+            )
+        )
+
+        val domainIpState = dataIpState.map(mapperDomainIpState)
+
+        assertEquals(expected,domainIpState)
+        assertTrue(domainIpState is TestDomainIpState.Cache)
+    }
+
+    @Test
     fun failure_map_data_ip_state_to_domain() {
         val mapperDomainIpState = MapperDataIpStateToDomain()
 
@@ -54,6 +86,9 @@ class IpStateMapperTest {
         override fun map(baseIp: BaseIp): TestDomainIpState
                 = TestDomainIpState.Success(baseIp)
 
+        override fun mapCache(baseIps: List<BaseIp>): TestDomainIpState
+            = TestDomainIpState.Cache(baseIps)
+
         override fun map(message: String): TestDomainIpState
                 = TestDomainIpState.Failure(message)
     }
@@ -66,6 +101,14 @@ class IpStateMapperTest {
 
             override fun <T> map(mapper: Abstract.IpStateMapper<T>): T
                     = mapper.map(baseIp)
+        }
+
+        data class Cache(
+            private val baseIps: List<BaseIp>
+        ) : TestDataIpState() {
+
+            override fun <T> map(mapper: Abstract.IpStateMapper<T>): T
+                = mapper.mapCache(baseIps)
         }
 
         data class Failure(
@@ -85,6 +128,14 @@ class IpStateMapperTest {
 
             override fun <T> map(mapper: Abstract.IpStateMapper<T>): T
                     = mapper.map(baseIp)
+        }
+
+        data class Cache(
+            private val baseIps: List<BaseIp>
+        ) : TestDomainIpState() {
+
+            override fun <T> map(mapper: Abstract.IpStateMapper<T>): T
+                    = mapper.mapCache(baseIps)
         }
 
         data class Failure(
