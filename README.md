@@ -11,6 +11,7 @@ SOLID,OOP,Clean architecture,JUnit tests<br/><br/>
 В качестве предоставления зависимостей(di) я использовал "Dagger2"<br/><br />
 Для навигации приложения была использована библиотека "Navigation component"
 
+
 ### Tests
 
 Необходимые классы покрыты юнит - тестами
